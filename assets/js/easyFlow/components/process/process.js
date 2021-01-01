@@ -18,6 +18,7 @@ export default class Process{
   DrawProcessHtml(){
     let html = ''
     html += '<div class="process-box" process-id="'+this.id+'" style="left:'+this.posX+'px; top:'+this.posY+'px;">'
+    html += '<div class="link-socket-input noDrag"></div>'
     if(this.type === 'question')
     {
       html += '<div class="question-box">'
@@ -30,13 +31,15 @@ export default class Process{
       html += this.text
       html += '</div>'
     }
+    html += '<button class="noDrag process-edit black-transition">Edit</button>'
+    html += '<div class="link-socket-output noDrag"></div>'
     html += '</div>'
 
     return html
   }
 
-  SaveChanges(){
-    //Update Db process positions and other things
+  AppendProcess(){
+    $(".main-flow-box").append(this.DrawProcessHtml())
   }
 
 }

@@ -1,35 +1,31 @@
-import Flow from './flow.js';
+import ControlPanel from './components/control-panel.js';
+import ProcessFactory from './components/process/process-factory.js';
 
 export default class EasyFlow{
 
   el = null
-  flow = new Flow()
-  constructor(_el, _flow){
-    this.el = _el
-    this.flow = _flow
+  controlPanel = null
+  processFactory = null
+  links = null
 
+  constructor(_el, processes){
+    this.el = _el
+    this.processFactory = new ProcessFactory(processes)
+    this.controlPanel = new ControlPanel(this.processFactory)
     this.init()
   }
 
   init(){
-    const _flow = this.flow
-
-    $(this.el).html(this.flow.DrawHtml())
-    $(".process-box").draggable({
-      start: function() {
-        //do something
-      },
-      drag: function() {
-        //do something
-      },
-      stop: function() {
-        let draggedProcess = _flow.processes.find(process => process.id == parseInt($(this).attr("process-id")))
-        var offset = $(this).offset()
-        draggedProcess.posX = offset.left;
-        draggedProcess.posY = offset.top;
-        draggedProcess.SaveChanges()
-      }
-    })
+    const temp = this
+    this.controlPanel.InitControlPanel(this.el)
+    $(this.el).append(this.DrawFlowHtml())
+    this.processFactory.InitProcesses()
   }
+
+  DrawFlowHtml(){
+      return '<div class="main-flow-box"></div>' 
+  }
+
+  
 
 }

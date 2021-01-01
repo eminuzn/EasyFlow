@@ -1,23 +1,29 @@
+:root{
+  --first-color:#282828;
+  --second-color:#648DAE;
+  --third-color:#e9e9e9;
+  --fourth-color:#DA3B58;
+}
 .main-flow-box{
   position: relative;
   width: 100%;
   height: 100%;
-  background-color: #282828;
+  background-color: var(--first-color);
 }
 .process-box{
   position: absolute;
   max-width: 200px;
   width: 100%;
   padding: 15px;
-  border: 2px solid #648DAE;
+  border: 2px solid var(--second-color);
   border-radius: 10px;
-  background-color: #e9e9e9;
+  background-color: var(--third-color);
 }
 .question-box{
-  background-color: #648DAE;
+  background-color: var(--second-color);
   padding: 5px 10px;
   border-radius: 5px;
-  color: #e9e9e9;
+  color: var(--third-color);
   margin-bottom: 5px;
 }
 .question-box::before{
@@ -27,8 +33,100 @@
   background-color: #DFC2C0;
   padding: 5px 10px;
   border-radius: 5px;
-  color: #282828;
+  color: var(--first-color);
+}
+.process-edit{
+  width: 100%;
+  margin-top: 5px;
+  background-color: var(--fourth-color);
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: var(--third-color);
+  transition: all 0.3s ease-in-out;
+  border: 2px solid var(--first-color);
 }
 .text-box::before{
   content: 'Text: ';
+}
+.easy-flow-control-panel{
+  width: 100%;
+  padding: 10px;
+  background-color: var(--fourth-color);
+}
+.new-process{
+  outline: none;
+  border: 1px solid var(--first-color);
+  background-color: var(--second-color);
+  color: var(--third-color);
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.black-transition:hover{
+  background-color: var(--first-color);
+}
+.easy-flow-add-modal{
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  max-width: 500px;
+  width: 100%;
+  z-index: 9;
+  background-color: var(--second-color);
+  padding: 20px;
+  border-radius: 10px;
+}
+.ef-form{
+  width: 100%;
+  padding: 8px 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid var(--first-color);
+}
+.add-process{
+  width: 100%;
+  border: none;
+  background-color: var(--fourth-color);
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: var(--third-color);
+  transition: all 0.3s ease-in-out;
+  border: 2px solid var(--first-color);
+}
+.easy-flow-overlay{
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.8);
+  width: 100%;
+  height: 100%;
+  z-index: 8;
+}
+.link-socket-input{
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: var(--first-color);
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid var(--third-color);
+  border-radius: 50%;
+}
+.link-socket-output{
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: var(--first-color);
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  border: 2px solid var(--third-color);
+  border-radius: 50%;
 }
