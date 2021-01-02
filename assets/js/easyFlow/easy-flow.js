@@ -20,14 +20,24 @@ export default class EasyFlow{
     const temp = this
     this.controlPanel.InitControlPanel(this.el)
     $(this.el).append(this.DrawFlowHtml())
-    await this.processFactory.InitProcesses()
+    this.processFactory.InitProcesses()
+
+    var infinitedrag = jQuery.infinitedrag("#wall", {}, {
+      width: 100,
+      height: 100,
+      start_col: 0,
+      start_row: 0
+    });
   }
 
   DrawFlowHtml(){
     let html = ''
-
+    html += '<div id="viewport">'
+    html += '<div id="wall">'
     html += '<div class="main-flow-box">'
     html += '<svg class="link-box"></svg>'
+    html += '</div>'
+    html += '</div>'
     html += '</div>'
     return html
   }

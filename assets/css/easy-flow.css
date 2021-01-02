@@ -4,6 +4,36 @@
   --third-color:#e9e9e9;
   --fourth-color:#DA3B58;
 }
+#viewport {
+    overflow:hidden; /* Occlude elements outside viewport! */
+    background-color:#000;
+    width:100%;
+    height:100%;
+    background-color:var(--first-color);
+    z-index: 1;
+  }
+  #wall {
+    /* Default settings by code:
+     *  position: relative;
+     *  cursor: move;
+     */
+     cursor: grab !important;
+     width: 100%;
+     height: 100%;
+  }
+    #wall ._tile {
+      /* Default settings by code:
+       * position: absolute,
+       * left: [auto],
+       * top: [auto],
+       * width: [set by constructor],
+       * height: [set by constructor],
+       * overflow: hidden
+       */
+      font-size:0;
+      font-weight:bold;
+      color:#000;
+    }
 .main-flow-box{
   position: relative;
   width: 100%;
@@ -18,6 +48,8 @@
   border: 2px solid var(--second-color);
   border-radius: 10px;
   background-color: var(--third-color);
+    z-index: 7;
+    cursor: move;
 }
 .question-box{
   background-color: var(--second-color);
@@ -133,4 +165,5 @@
 .link-box{
   width: 100%;
   height: 100%;
+    overflow: unset;
 }
