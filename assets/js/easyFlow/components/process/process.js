@@ -18,7 +18,7 @@ export default class Process{
   DrawProcessHtml(){
     let html = ''
     html += '<div class="process-box process-'+this.id+'" process-id="'+this.id+'" style="left:'+this.posX+'px; top:'+this.posY+'px;">'
-    html += '<div class="link-socket-input noDrag"></div>'
+    html += '<div class="link-socket-input noDrag" process-id="'+this.id+'"></div>'
     if(this.type === 'question')
     {
       html += '<div class="question-box">'
@@ -32,7 +32,7 @@ export default class Process{
       html += '</div>'
     }
     html += '<button class="noDrag process-edit black-transition">Edit</button>'
-    html += '<div class="link-socket-output noDrag"></div>'
+    html += '<div class="link-socket-output noDrag" process-id="'+this.id+'"></div>'
     html += '</div>'
 
     return html

@@ -29,7 +29,7 @@ export default class EasyFlow{
     html += '<div class="main-flow-box">'
     html += '<svg class="link-box"></svg>'
     html += '</div>'
-      return html
+    return html
   }
 
   

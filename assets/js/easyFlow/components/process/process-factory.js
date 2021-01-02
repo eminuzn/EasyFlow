@@ -20,6 +20,7 @@ export default class ProcessFactory{
     this.linkFactory.InitLinks()
     this.InitDraggable()
     
+    this.linkFactory.InitLinkable()
   }
 
   InitDraggable(){
@@ -55,6 +56,7 @@ export default class ProcessFactory{
     this.processes.push(process)
     process.AppendProcess()
     this.InitDraggable()
+    this.linkFactory.InitLinkable()
   }
 
   RemoveProcess(process){
