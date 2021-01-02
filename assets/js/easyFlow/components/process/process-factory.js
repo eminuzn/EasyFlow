@@ -1,18 +1,25 @@
+import LinkFactory from "../link/link-factory.js"
+
 export default class ProcessFactory{
   
   processes = []
+  linkFactory = null 
 
-  constructor(processes){
+  constructor(processes,links){
     this.processes = processes
+    
+    this.linkFactory = new LinkFactory(links)
   }
 
-  InitProcesses(){
+  async InitProcesses(){
     
     for(let item of this.processes){
       item.AppendProcess()
     }
 
+    this.linkFactory.InitLinks()
     this.InitDraggable()
+    
   }
 
   InitDraggable(){
@@ -24,7 +31,7 @@ export default class ProcessFactory{
         //do something
       },
       drag: function() {
-        //do something
+        _this.linkFactory.ReCalcPositions($(this).attr("process-id"))
       },
       stop: function() {
         let draggedProcess = _this.processes.find(process => process.id == parseInt($(this).attr("process-id")))
@@ -51,7 +58,7 @@ export default class ProcessFactory{
   }
 
   RemoveProcess(process){
-    //Add Db process 
+    //Remove Db process 
   }
 
 }

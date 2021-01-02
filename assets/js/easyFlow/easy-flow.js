@@ -1,4 +1,5 @@
 import ControlPanel from './components/control-panel.js';
+import LinkFactory from './components/link/link-factory.js';
 import ProcessFactory from './components/process/process-factory.js';
 
 export default class EasyFlow{
@@ -8,22 +9,27 @@ export default class EasyFlow{
   processFactory = null
   links = null
 
-  constructor(_el, processes){
+  constructor(_el, processes, links){
     this.el = _el
-    this.processFactory = new ProcessFactory(processes)
+    this.processFactory = new ProcessFactory(processes, links)
     this.controlPanel = new ControlPanel(this.processFactory)
     this.init()
   }
 
-  init(){
+  async init(){
     const temp = this
     this.controlPanel.InitControlPanel(this.el)
     $(this.el).append(this.DrawFlowHtml())
-    this.processFactory.InitProcesses()
+    await this.processFactory.InitProcesses()
   }
 
   DrawFlowHtml(){
-      return '<div class="main-flow-box"></div>' 
+    let html = ''
+
+    html += '<div class="main-flow-box">'
+    html += '<svg class="link-box"></svg>'
+    html += '</div>'
+      return html
   }
 
   
