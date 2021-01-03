@@ -150,6 +150,8 @@
   transform: translate(-50%, -50%);
   border: 2px solid var(--third-color);
   border-radius: 50%;
+  z-index: 7;
+  cursor: pointer;
 }
 .link-socket-output{
   position: absolute;
@@ -161,6 +163,8 @@
   transform: translate(-50%, 50%);
   border: 2px solid var(--third-color);
   border-radius: 50%;
+  z-index: 7;
+  cursor: pointer;
 }
 .link-box{
   width: 100%;

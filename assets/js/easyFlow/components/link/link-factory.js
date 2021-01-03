@@ -27,10 +27,17 @@ export default class LinkFactory{
   InitLinkable(){
 
     let _this = this
+    let outputClickFix = false
 
     $(".link-socket-output").click(function(){
       _this.newLink.from = $(this).attr("process-id")
-      
+    })
+
+    $(".link-socket-output").mouseenter(function(){
+      outputClickFix = true
+    })
+    $(".link-socket-output").mouseleave(function(){
+      outputClickFix = false
     })
 
     $(".link-socket-input").click(function(){
@@ -51,11 +58,12 @@ export default class LinkFactory{
       _this.newLink.from = null
       _this.newLink.UpdatePositions()
     })
-
     
-    $(".link-box").filter(":not(.link-socket-input)").click(function(){
-      _this.newLink.from = null
-      _this.newLink.UpdatePositions()
+    $("#wall").filter(":not(.link-socket-input)").filter(":not(.link-socket-output)").click(function(){
+      if(outputClickFix === false){
+        _this.newLink.from = null
+        _this.newLink.UpdatePositions()
+      }
     })
 
     $(window).mousemove(function(event){
