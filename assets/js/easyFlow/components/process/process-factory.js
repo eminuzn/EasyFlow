@@ -7,7 +7,6 @@ export default class ProcessFactory{
 
   constructor(processes,links){
     this.processes = processes
-    
     this.linkFactory = new LinkFactory(links)
   }
 
@@ -21,6 +20,16 @@ export default class ProcessFactory{
     this.InitDraggable()
     
     this.linkFactory.InitLinkable()
+    this.InitDeletable()
+  }
+
+  InitDeletable(){
+    let _this = this
+     $(".main-flow-box").on("click",".delete-process",function(){
+      if(confirm("İşlemi Silmek İstediğinize Emin misiniz?")){
+        _this.RemoveProcess(parseInt($(this).attr("process-id")))
+      }
+    })
   }
 
   InitDraggable(){
@@ -35,19 +44,22 @@ export default class ProcessFactory{
         _this.linkFactory.ReCalcPositions($(this).attr("process-id"))
       },
       stop: function() {
-        let draggedProcess = _this.processes.find(process => process.id == parseInt($(this).attr("process-id")))
-        var offset = $(this).offset()
-        draggedProcess.posX = offset.left;
-        draggedProcess.posY = offset.top;
-
-        _this.UpdateProcess(draggedProcess)
+        _this.UpdateProcess($(this))
       }
     })
   }
 
 
-  UpdateProcess(process){
+  UpdateProcess(processEl){
     //Update Db process positions and other things
+    let draggedProcess = this.processes.find(process => process.id == parseInt(processEl.attr("process-id")))
+    var offset = processEl.offset()
+
+    let mainFlowBoxPosition = $(".main-flow-box").offset()
+    draggedProcess.posX = offset.left - mainFlowBoxPosition.left;
+    draggedProcess.posY = offset.top - mainFlowBoxPosition.top;
+
+    this.linkFactory.ReCalcPositions(draggedProcess.id)
   }
 
   AddProcess(process){
@@ -56,11 +68,24 @@ export default class ProcessFactory{
     this.processes.push(process)
     process.AppendProcess()
     this.InitDraggable()
-    this.linkFactory.InitLinkable()
   }
 
-  RemoveProcess(process){
+  RemoveProcess(processId){
     //Remove Db process 
+    console.log(processId)
+
+    let process = this.processes.find(x=>x.id === processId)
+
+    if(process != null){
+      //call api link delete
+      this.processes = this.processes.filter(x=>x.id !== processId)
+      $(".process-"+processId).remove()
+      let effectedLinks = this.linkFactory.links.filter(x=>x.from==parseInt(processId) || x.to==parseInt(processId) )
+
+      for(let item of effectedLinks){
+        this.linkFactory.RemoveLink(item.id)
+      }
+    }
   }
 
 }

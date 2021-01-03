@@ -19,6 +19,7 @@ export default class Process{
     let html = ''
     html += '<div class="process-box process-'+this.id+'" process-id="'+this.id+'" style="left:'+this.posX+'px; top:'+this.posY+'px;">'
     html += '<div class="link-socket-input noDrag" process-id="'+this.id+'"></div>'
+    html += '<div class="delete-process noDrag" process-id="'+this.id+'">x</div>'
     if(this.type === 'question')
     {
       html += '<div class="question-box">'

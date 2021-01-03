@@ -27,7 +27,8 @@ export default class Link{
     let html = ''
     html += '<g>' 
     html += '<path id="link-'+this.id+'" d="'+path+'" style="stroke: var(--fourth-color);stroke-width: 2.73205;fill:none"></path>'
-    html += '<path id="arrow-'+this.id+'" d="M -1 -1 L 0 1 L 1 -1 z" style="stroke: var(--fourth-color);stroke-width: 5.73205;fill: none;" transform="'+transform+'"></path>'
+    html += '<path id="arrow-'+this.id+'" class="arrow" d="M -1 -1 L 0 1 L 1 -1 z" transform="'+transform+'"></path>'
+    html += '<a href="javascript:void(0)" class="close-x" link-id="'+this.id+'"><path id="remove-link-'+this.id+'" d="M -5,-5 L 5,5 M 5,-5 L -5,5" transform="'+transform+'" /></a>'
     html += '</g>'
     return html
   }
@@ -101,6 +102,7 @@ export default class Link{
 
     Pablo("#link-"+this.id).attr("d",path)
     Pablo("#arrow-"+this.id).attr("transform",transform)
+    Pablo("#remove-link-"+this.id).attr("transform",transform)
   }
 
   AppendLink(){
