@@ -10,7 +10,7 @@ export default class ProcessFactory{
     this.linkFactory = new LinkFactory(links)
   }
 
-  async InitProcesses(){
+  InitProcesses(){
     
     for(let item of this.processes){
       item.AppendProcess()
@@ -48,7 +48,6 @@ export default class ProcessFactory{
       }
     })
   }
-
 
   UpdateProcess(processEl){
     //Update Db process positions and other things
