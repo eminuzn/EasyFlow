@@ -4,7 +4,7 @@
 
  <img src="https://raw.githubusercontent.com/eminuzn/EasyFlow/main/assets/images/2.gif" width="500px" style="margin:10px auto;">
 
-# Usege
+# Usage
 
 + Include necessary javascript library files
 
