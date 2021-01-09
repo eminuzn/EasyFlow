@@ -1,14 +1,20 @@
 import EasyFlow from "../../easy-flow.js"
 import LinkFactory from "../link/link-factory.js"
+import Process from "./process.js"
 
 export default class ProcessFactory{
   
   processes = []
   linkFactory = null 
+  OnProcessAdded = function(){}
+  OnProcessDragged = function(){}
 
-  constructor(processes,links){
-    this.processes = processes
+  constructor(processes, links, onProcessAdded, onProcessDragged){
+    let _this = this
+    processes.forEach((item) => _this.processes.push(new Process(item)));
     this.linkFactory = new LinkFactory(links)
+    this.OnProcessAdded = onProcessAdded
+    this.OnProcessDragged = onProcessDragged
   }
 
   InitProcesses(){
@@ -16,12 +22,11 @@ export default class ProcessFactory{
     for(let item of this.processes){
       item.AppendProcess()
     }
-
-    this.linkFactory.InitLinks()
-    this.InitDraggable()
     
+    this.linkFactory.InitLinks()
     this.linkFactory.InitLinkable()
     this.InitDeletable()
+    this.InitDraggable()
   }
 
   InitDeletable(){
@@ -51,7 +56,7 @@ export default class ProcessFactory{
   }
 
   UpdateProcess(processEl){
-    //Update Db process positions and other things
+    
     let draggedProcess = this.processes.find(process => process.id == processEl.attr("process-id"))
     var offset = processEl.offset()
 
@@ -59,7 +64,9 @@ export default class ProcessFactory{
     draggedProcess.posX = offset.left - mainFlowBoxPosition.left;
     draggedProcess.posY = offset.top - mainFlowBoxPosition.top;
 
-    this.linkFactory.ReCalcPositions(draggedProcess.id)
+    let effectedLinks = this.linkFactory.ReCalcPositions(draggedProcess.id)
+
+    this.OnProcessDragged(draggedProcess, effectedLinks)
   }
 
   AddProcess(process){
@@ -69,6 +76,8 @@ export default class ProcessFactory{
     this.processes.push(process)
     process.AppendProcess()
     this.InitDraggable()
+
+    console.log(this.OnProcessAdded(process))
   }
 
   RemoveProcess(processId){

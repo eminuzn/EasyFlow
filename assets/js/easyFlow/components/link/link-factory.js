@@ -7,7 +7,8 @@ export default class LinkFactory{
   newLink = new Link({id:'newLink',from:null,to:null,text:''})
   
   constructor(links){
-    this.links = links
+    let _this = this
+    links.forEach((item) => _this.links.push(new Link(item)));
   }
 
   InitLinks(){
@@ -39,6 +40,8 @@ export default class LinkFactory{
     for(let item of effectedLinks){
       item.UpdatePositions()
     }
+
+    return effectedLinks
   }
 
   InitDeletable(){
