@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/easy-flow.css">
+
+  <title>Easy Flow Webpack</title>
+</head>
+
+<body>
+
+  <div id="example-box">
+
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="http://pablojs.com/downloads/pablo.min.js"></script>
+  <script src="http://ianli.github.io/jquery-infinite-drag/javascripts/jquery.infinitedrag.js"></script>
+
+  <script src="./easy-flow.min.js"></script>
+
+  <script>
+    let flow = new EasyFlow({
+      el: "#example-box",
+      processes: [
+        {
+          id: "0d7c0925-dbe1-465a-adab-837612ce3c31",
+          type: 'question',
+          question: 'naber',
+          text: 'example text',
+          posX: 500,
+          posY: 50
+        },
+        {
+          id: "ae22e0c6-1b3f-4f05-87eb-28ff6936bf8c",
+          type: 'text',
+          question: '',
+          text: 'Deneme Yazı',
+          posX: 300,
+          posY: 300
+        },
+        {
+          id: "b4b5d5bc-9ecf-4fae-9341-69118a024483",
+          type: 'text',
+          question: '',
+          text: 'qweqweqweqwe',
+          posX: 600,
+          posY: 400
+        }
+      ],
+      links: [
+        {
+          id: "9efb33a9-d1eb-4d37-8637-1faf98fd52e0",
+          text: 'deneme link 1',
+          from: "0d7c0925-dbe1-465a-adab-837612ce3c31",
+          to: "ae22e0c6-1b3f-4f05-87eb-28ff6936bf8c"
+        },
+        {
+          id: "3909ef25-96e5-4a05-852e-b1aa753769e3",
+          text: 'deneme link 1',
+          from: "0d7c0925-dbe1-465a-adab-837612ce3c31",
+          to: "b4b5d5bc-9ecf-4fae-9341-69118a024483"
+        },
+
+        {
+          id: "a0d2272e-174c-457f-a8be-faff085c6d7d",
+          text: 'deneme link 1',
+          from: "ae22e0c6-1b3f-4f05-87eb-28ff6936bf8c",
+          to: "b4b5d5bc-9ecf-4fae-9341-69118a024483"
+        }
+      ],
+      onProcessAdded: (process) => {
+        //Insert DB or Do something
+        console.log(process)
+      },
+      onProcessDragged: (process, links) => {
+        //Update DB positions or Do something
+        console.log(process, links)
+      }
+    })
+  </script>
+
+</body>
+
+</html>
