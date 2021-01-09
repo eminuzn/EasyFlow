@@ -1,3 +1,4 @@
+import EasyFlow from "../../easy-flow.js"
 import Link from "./link.js"
 
 export default class LinkFactory{
@@ -33,7 +34,7 @@ export default class LinkFactory{
   }
 
   ReCalcPositions(processId){
-    let effectedLinks = this.links.filter(x=>x.from==parseInt(processId) || x.to==parseInt(processId) )
+    let effectedLinks = this.links.filter(x=>x.from==processId || x.to==processId )
     
     for(let item of effectedLinks){
       item.UpdatePositions()
@@ -72,7 +73,7 @@ export default class LinkFactory{
       if(filteredLink.length == 0)
       {
         let linkToAdd = new Link({
-          id:Math.floor(Math.random() * Math.floor(1000)),
+          id: EasyFlow.GenerateUUID(),
           from:_this.newLink.from,
           to: $(this).attr("process-id"),
           text: ''

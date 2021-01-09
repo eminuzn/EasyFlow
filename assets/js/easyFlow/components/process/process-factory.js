@@ -1,3 +1,4 @@
+import EasyFlow from "../../easy-flow.js"
 import LinkFactory from "../link/link-factory.js"
 
 export default class ProcessFactory{
@@ -51,7 +52,7 @@ export default class ProcessFactory{
 
   UpdateProcess(processEl){
     //Update Db process positions and other things
-    let draggedProcess = this.processes.find(process => process.id == parseInt(processEl.attr("process-id")))
+    let draggedProcess = this.processes.find(process => process.id == processEl.attr("process-id"))
     var offset = processEl.offset()
 
     let mainFlowBoxPosition = $(".main-flow-box").offset()
@@ -63,7 +64,8 @@ export default class ProcessFactory{
 
   AddProcess(process){
     //Add Db process and get id 
-    process.id = Math.floor(Math.random() * Math.floor(1000))
+    process.id = EasyFlow.GenerateUUID()
+    //Math.floor(Math.random() * Math.floor(1000))
     this.processes.push(process)
     process.AppendProcess()
     this.InitDraggable()
