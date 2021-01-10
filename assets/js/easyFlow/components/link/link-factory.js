@@ -8,7 +8,11 @@ export default class LinkFactory{
   
   constructor(links){
     let _this = this
-    links.forEach((item) => _this.links.push(new Link(item)));
+    
+    for(let item of links){
+      _this.links.push(new Link(item))
+    }
+    
   }
 
   InitLinks(){
@@ -17,11 +21,21 @@ export default class LinkFactory{
     }
     this.newLink.AppendLink() 
     this.InitDeletable()
+    this.IniUpdatable()
   }
 
   AddLink(link){
     this.links.push(link)
     link.AppendLink()
+  }
+
+  UpdateLink(linkid){
+    let link = this.links.find(x=>x.id==linkid)
+      
+    if(link){
+      link.text = $(".link-update-modal .ef-form.text").val()
+      link.UpdateText()
+    }
   }
 
   RemoveLink(linkId){
@@ -48,8 +62,19 @@ export default class LinkFactory{
     let _this = this
     $(".link-box").on("click",".close-x",function(){
       if(confirm("Linki Silmek İstediğinize Emin misiniz?")){
-        _this.RemoveLink(parseInt($(this).attr("link-id")))
+        _this.RemoveLink($(this).attr("link-id"))
       }
+    })
+  }
+
+
+  IniUpdatable(){
+    let _this = this
+    $(".link-box").on("click",".link-line",function(){
+      $(".link-update-modal .ef-form.text").val($(this).parent().children(".link-text").eq(0).text())
+      $(".link-update-modal").attr("link-id",$(this).attr("link-id"))
+      $(".link-update-modal").fadeIn(200)
+      $(".easy-flow-overlay").fadeIn(200)
     })
   }
 

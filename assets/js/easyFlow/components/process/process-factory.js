@@ -11,7 +11,9 @@ export default class ProcessFactory{
 
   constructor(processes, links, onProcessAdded, onProcessDragged){
     let _this = this
-    processes.forEach((item) => _this.processes.push(new Process(item)));
+    for(let item of processes){
+      _this.processes.push(new Process(item))
+    }
     this.linkFactory = new LinkFactory(links)
     this.OnProcessAdded = onProcessAdded
     this.OnProcessDragged = onProcessDragged
@@ -33,7 +35,7 @@ export default class ProcessFactory{
     let _this = this
      $(".main-flow-box").on("click",".delete-process",function(){
       if(confirm("İşlemi Silmek İstediğinize Emin misiniz?")){
-        _this.RemoveProcess(parseInt($(this).attr("process-id")))
+        _this.RemoveProcess($(this).attr("process-id"))
       }
     })
   }
@@ -77,20 +79,18 @@ export default class ProcessFactory{
     process.AppendProcess()
     this.InitDraggable()
 
-    console.log(this.OnProcessAdded(process))
+    this.OnProcessAdded(process)
   }
 
   RemoveProcess(processId){
     //Remove Db process 
-    console.log(processId)
-
     let process = this.processes.find(x=>x.id === processId)
 
     if(process != null){
       //call api link delete
       this.processes = this.processes.filter(x=>x.id !== processId)
       $(".process-"+processId).remove()
-      let effectedLinks = this.linkFactory.links.filter(x=>x.from==parseInt(processId) || x.to==parseInt(processId) )
+      let effectedLinks = this.linkFactory.links.filter(x=>x.from==processId || x.to==processId )
 
       for(let item of effectedLinks){
         this.linkFactory.RemoveLink(item.id)

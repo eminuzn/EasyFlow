@@ -8,8 +8,8 @@
   "license": "ISC",
   "scripts": {
     "clean": "rm dist/bundle.js",
-    "build-dev": "webpack --mode development",
-    "build": "webpack --mode production"
+    "build-dev": "copy %cd%\\assets\\css\\*.css %cd%\\dist\\css\\ & copy %cd%\\assets\\js\\libraries\\*.js %cd%\\dist\\js\\ & webpack --mode development",
+    "build": "copy %cd%\\assets\\css\\*.css %cd%\\dist\\css\\ & copy %cd%\\assets\\js\\libraries\\*.js %cd%\\dist\\js\\ & webpack --mode production"
   },
   "dependencies": {},
   "devDependencies": {

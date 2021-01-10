@@ -4,7 +4,7 @@ const path = require('path');
 const config = {
   entry: ['babel-polyfill', path.resolve(__dirname, 'assets/js/webpack.js')],
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist/js'),
     filename: 'easy-flow.min.js',
     libraryTarget: "var",
     library: "EasyFlow"

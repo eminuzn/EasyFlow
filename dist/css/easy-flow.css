@@ -100,8 +100,7 @@
 .black-transition:hover{
   background-color: var(--first-color);
 }
-
-.easy-flow-modal{
+.easy-flow-add-modal{
   display: none;
   position: absolute;
   left: 50%;
@@ -121,7 +120,7 @@
   border-radius: 5px;
   border: 1px solid var(--first-color);
 }
-.easy-flow-modal button{
+.add-process{
   width: 100%;
   border: none;
   background-color: var(--fourth-color);
@@ -213,18 +212,4 @@
   line-height: 19px;
   font-weight: bolder;
   color: var(--third-color);
-}
-.link-text{
-  fill: var(--first-color);
-}
-.link-line{
-  stroke: var(--fourth-color);
-  stroke-width: 2.73205;
-  fill:none;
-  cursor: pointer;
-}
-.link-line:hover{
-  stroke: var(--second-color);
-  stroke-width: 2.73205;
-  fill:none
 }

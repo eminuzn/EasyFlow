@@ -18,19 +18,27 @@ export default class Link{
 
   DrawLinkHtml(){
     
-    let path = '',transform=''
+    let path = '',transform='',translate=''
     if(this.from != null){
       path = this.CalcPath()
       transform = this.CalcTransform()
+      translate = this.CalcTranslate()
     }
 
     let html = ''
     html += '<g>' 
-    html += '<path id="link-'+this.id+'" d="'+path+'" style="stroke: var(--fourth-color);stroke-width: 2.73205;fill:none"></path>'
+    html += '<path id="link-'+this.id+'" d="'+path+'" class="link-line" data-text="'+this.text+'" link-id="'+this.id+'"></path>'
     html += '<path id="arrow-'+this.id+'" class="arrow" d="M -1 -1 L 0 1 L 1 -1 z" transform="'+transform+'"></path>'
+    html += '<text filter="url(#bg-text)" y="-20" class="link-text-'+this.id+'" text-anchor="middle"  transform="'+translate+'">'+this.text+'</text>'
+    html += '<text y="-20" class="link-text link-text-'+this.id+'" text-anchor="middle" transform="'+translate+'">'+this.text+'</text>'
     html += '<a href="javascript:void(0)" class="close-x" link-id="'+this.id+'"><path id="remove-link-'+this.id+'" d="M -5,-5 L 5,5 M 5,-5 L -5,5" transform="'+transform+'" /></a>'
     html += '</g>'
     return html
+  }
+
+  UpdateText(){
+    $(".link-text-"+this.id).text(this.text)
+    this.UpdatePositions()//tüm yazı silinip tekrar yazılınca gözükmyor bununla nedense düzeldi
   }
 
   CalcPath(){
@@ -42,15 +50,24 @@ export default class Link{
     return `M ${cx}, ${cy} C ${x1}, ${y1}, ${x2}, ${y2}, ${ex}, ${ey}`;
   }
 
-  CalcTransform(){
+
+  CalcTranslate(){
     let arrowX = this.startX + ((this.endX - this.startX) / 2);
     let arrowY = this.startY + ((this.endY - this.startY) / 2);
 
+    return `translate(${arrowX}, ${arrowY})`
+  }
+
+  CalcRotate(){
     const angle = -Math.atan2(this.endX - this.startX, this.endY - this.startY);
     let degree = angle * 180 / Math.PI;
     degree = degree < 0 ? degree + 360 : degree;
 
-    return `translate(${arrowX}, ${arrowY}) rotate(${degree})`;
+    return `rotate(${degree})`
+  }
+
+  CalcTransform(){
+    return `${this.CalcTranslate()} ${this.CalcRotate()}`;
   }
 
   CalcPosition(mousePos = null){
@@ -94,19 +111,31 @@ export default class Link{
   UpdatePositions(mousePos = null){
     this.CalcPosition(mousePos)
     
-    let path = '',transform=''
+    let path = '',transform='',translate=''
     if(this.from != null){
       path = this.CalcPath()
       transform = this.CalcTransform()
+      translate = this.CalcTranslate()
     }
 
     Pablo("#link-"+this.id).attr("d",path)
     Pablo("#arrow-"+this.id).attr("transform",transform)
     Pablo("#remove-link-"+this.id).attr("transform",transform)
+    Pablo(".link-text-"+this.id).attr("transform",translate)
   }
 
   AppendLink(){
-    this.CalcPosition()
-    Pablo(".link-box").append(this.DrawLinkHtml())
+    if(($(".process-"+this.from).length > 0 && $(".process-"+this.to).length > 0) || this.id == 'newLink'){
+      
+      if(this.from != this.to || this.id == 'newLink'){
+        this.CalcPosition()
+        Pablo(".link-box").append(this.DrawLinkHtml())
+      }
+      else{
+        alert("flowu direkt kendine bağlayamazsınız")
+      }
+    
+    }
+    
   }
 }

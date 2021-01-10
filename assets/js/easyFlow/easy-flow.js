@@ -9,7 +9,7 @@ export default class EasyFlow{
   processFactory = null
   links = null
 
-  constructor({el, processes, links, onProcessAdded, onProcessDragged}){
+  constructor({el, processes=[], links=[], onProcessAdded=(process) => {}, onProcessDragged=(process) => {}}){
     this.el = el
     this.processFactory = new ProcessFactory(processes, links, onProcessAdded, onProcessDragged)
     this.controlPanel = new ControlPanel(this.processFactory)
@@ -35,7 +35,8 @@ export default class EasyFlow{
     html += '<div id="viewport">'
     html += '<div id="wall">'
     html += '<div class="main-flow-box">'
-    html += '<svg class="link-box"></svg>'
+    html += '<svg class="link-box"><defs><filter x="0" y="0" width="1" height="1" id="bg-text"><feFlood flood-color="white"/><feComposite in="SourceGraphic" operator="xor" /></filter></defs>'
+    html += '</svg>'
     html += '</div>'
     html += '</div>'
     html += '</div>'
