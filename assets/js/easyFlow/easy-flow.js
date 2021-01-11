@@ -9,9 +9,9 @@ export default class EasyFlow{
   processFactory = null
   links = null
 
-  constructor({el, processes=[], links=[], onProcessAdded=(process) => {}, onProcessDragged=(process) => {}}){
+  constructor({el, processes=[], links=[], onProcessAdded=() => {}, onProcessDragged=() => {}, onProcessDeleted=() => {}, onLinkAdded=() => {}, onLinkUpdated=() => {}, onLinkDeleted=() => {}}){
     this.el = el
-    this.processFactory = new ProcessFactory(processes, links, onProcessAdded, onProcessDragged)
+    this.processFactory = new ProcessFactory(processes, links, onProcessAdded, onProcessDragged, onProcessDeleted, onLinkAdded, onLinkUpdated, onLinkDeleted)
     this.controlPanel = new ControlPanel(this.processFactory)
     this.init()
   }

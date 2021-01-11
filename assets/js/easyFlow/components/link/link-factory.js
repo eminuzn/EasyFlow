@@ -5,14 +5,19 @@ export default class LinkFactory{
   
   links = []
   newLink = new Link({id:'newLink',from:null,to:null,text:''})
-  
-  constructor(links){
+  onLinkAdded = function(){}
+  onLinkUpdated = function(){}
+  onLinkDeleted = function(){}
+
+  constructor(links, onLinkAdded, onLinkUpdated, onLinkDeleted){
     let _this = this
     
     for(let item of links){
       _this.links.push(new Link(item))
     }
-    
+    this.onLinkAdded = onLinkAdded
+    this.onLinkUpdated = onLinkUpdated
+    this.onLinkDeleted = onLinkDeleted
   }
 
   InitLinks(){
@@ -27,6 +32,8 @@ export default class LinkFactory{
   AddLink(link){
     this.links.push(link)
     link.AppendLink()
+
+    this.onLinkAdded(link)
   }
 
   UpdateLink(linkid){
@@ -35,6 +42,7 @@ export default class LinkFactory{
     if(link){
       link.text = $(".link-update-modal .ef-form.text").val()
       link.UpdateText()
+      this.onLinkUpdated(link)
     }
   }
 
@@ -45,6 +53,8 @@ export default class LinkFactory{
       //call api link delete
       this.links = this.links.filter(x=>x.id !== linkId)
       $("#link-"+linkId).parent().remove()
+
+      this.onLinkDeleted(link)
     }
   }
 

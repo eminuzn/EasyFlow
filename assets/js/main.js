@@ -33,11 +33,27 @@ $(function() {
       ],
       onProcessAdded: (process) => {
         //Insert DB or Do something
-        console.log(process)
+        console.log("Added process:", process)
       },
       onProcessDragged: (process, links) => {
         //Update DB positions or Do something
-        console.log(process, links)
+        console.log("Dragged process and affected links:", process, links)
+      },
+      onProcessDeleted: (process, links) => {
+        //Update DB positions or Do something
+        console.log("Deleted Process and links:", process, links)
+      },
+      onLinkAdded: (link) => {
+        //Insert DB or Do something
+        console.log("Added link:", link)
+      },
+      onLinkUpdated: (link) => {
+        //Update DB or Do something
+        console.log("Updated link:", link)
+      },
+      onLinkDeleted: (link) => {
+        //Delete DB or Do something
+        console.log("Deleted link:", link)
       }
     })
 });

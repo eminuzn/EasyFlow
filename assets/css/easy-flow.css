@@ -216,10 +216,11 @@
 }
 .link-text{
   fill: var(--first-color);
+  z-index: 7;
 }
 .link-line{
   stroke: var(--fourth-color);
-  stroke-width: 2.73205;
+  stroke-width: 3;
   fill:none;
   cursor: pointer;
 }

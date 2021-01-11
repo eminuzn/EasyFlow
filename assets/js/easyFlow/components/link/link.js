@@ -22,14 +22,16 @@ export default class Link{
     if(this.from != null){
       path = this.CalcPath()
       transform = this.CalcTransform()
-      translate = this.CalcTranslate()
+      if(this.text != null && this.text.trim() != ""){
+        translate = this.CalcTranslate()
+      }
     }
 
     let html = ''
     html += '<g>' 
     html += '<path id="link-'+this.id+'" d="'+path+'" class="link-line" data-text="'+this.text+'" link-id="'+this.id+'"></path>'
     html += '<path id="arrow-'+this.id+'" class="arrow" d="M -1 -1 L 0 1 L 1 -1 z" transform="'+transform+'"></path>'
-    html += '<text filter="url(#bg-text)" y="-20" class="link-text-'+this.id+'" text-anchor="middle"  transform="'+translate+'">'+this.text+'</text>'
+    html += '<text filter="url(#bg-text)" y="-20" class="link-text-'+this.id+'" style="z-index:7" text-anchor="middle"  transform="'+translate+'">'+this.text+'</text>'
     html += '<text y="-20" class="link-text link-text-'+this.id+'" text-anchor="middle" transform="'+translate+'">'+this.text+'</text>'
     html += '<a href="javascript:void(0)" class="close-x" link-id="'+this.id+'"><path id="remove-link-'+this.id+'" d="M -5,-5 L 5,5 M 5,-5 L -5,5" transform="'+transform+'" /></a>'
     html += '</g>'
@@ -38,7 +40,7 @@ export default class Link{
 
   UpdateText(){
     $(".link-text-"+this.id).text(this.text)
-    this.UpdatePositions()//tüm yazı silinip tekrar yazılınca gözükmyor bununla nedense düzeldi
+    this.UpdatePositions()
   }
 
   CalcPath(){
@@ -115,13 +117,15 @@ export default class Link{
     if(this.from != null){
       path = this.CalcPath()
       transform = this.CalcTransform()
-      translate = this.CalcTranslate()
+      if(this.text != null && this.text.trim() != ""){
+        translate = this.CalcTranslate()
+      }
     }
 
-    Pablo("#link-"+this.id).attr("d",path)
-    Pablo("#arrow-"+this.id).attr("transform",transform)
-    Pablo("#remove-link-"+this.id).attr("transform",transform)
-    Pablo(".link-text-"+this.id).attr("transform",translate)
+    Pablo("#link-"+this.id).attr("d", path)
+    Pablo("#arrow-"+this.id).attr("transform", transform)
+    Pablo("#remove-link-"+this.id).attr("transform", transform)
+    Pablo(".link-text-"+this.id).attr("transform", translate)
   }
 
   AppendLink(){

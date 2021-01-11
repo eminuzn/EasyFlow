@@ -8,15 +8,17 @@ export default class ProcessFactory{
   linkFactory = null 
   OnProcessAdded = function(){}
   OnProcessDragged = function(){}
+  onProcessDeleted = function(){}
 
-  constructor(processes, links, onProcessAdded, onProcessDragged){
+  constructor(processes, links, onProcessAdded, onProcessDragged, onProcessDeleted, onLinkAdded, onLinkUpdated, onLinkDeleted){
     let _this = this
     for(let item of processes){
       _this.processes.push(new Process(item))
     }
-    this.linkFactory = new LinkFactory(links)
+    this.linkFactory = new LinkFactory(links, onLinkAdded, onLinkUpdated, onLinkDeleted)
     this.OnProcessAdded = onProcessAdded
     this.OnProcessDragged = onProcessDragged
+    this.onProcessDeleted = onProcessDeleted
   }
 
   InitProcesses(){
@@ -52,12 +54,12 @@ export default class ProcessFactory{
         _this.linkFactory.ReCalcPositions($(this).attr("process-id"))
       },
       stop: function() {
-        _this.UpdateProcess($(this))
+        _this.UpdateProcessPosition($(this))
       }
     })
   }
 
-  UpdateProcess(processEl){
+  UpdateProcessPosition(processEl){
     
     let draggedProcess = this.processes.find(process => process.id == processEl.attr("process-id"))
     var offset = processEl.offset()
@@ -85,16 +87,18 @@ export default class ProcessFactory{
   RemoveProcess(processId){
     //Remove Db process 
     let process = this.processes.find(x=>x.id === processId)
-
+    let effectedLinks = []
     if(process != null){
       //call api link delete
       this.processes = this.processes.filter(x=>x.id !== processId)
       $(".process-"+processId).remove()
-      let effectedLinks = this.linkFactory.links.filter(x=>x.from==processId || x.to==processId )
+      effectedLinks = this.linkFactory.links.filter(x=>x.from==processId || x.to==processId )
 
       for(let item of effectedLinks){
         this.linkFactory.RemoveLink(item.id)
       }
+
+      this.onProcessDeleted(process, effectedLinks)
     }
   }
 
