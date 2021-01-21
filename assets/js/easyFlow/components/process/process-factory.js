@@ -73,6 +73,11 @@ export default class ProcessFactory{
     this.OnProcessDragged(draggedProcess, effectedLinks)
   }
 
+  UpdateProcess(processId){
+    let process = this.processes.find(x=>x.id === processId)
+    //yapım aşamasında
+  }
+
   AddProcess(process){
     //Add Db process and get id 
     process.id = EasyFlow.GenerateUUID()

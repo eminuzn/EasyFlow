@@ -57,7 +57,6 @@ export default class ControlPanel{
     $(".easy-flow-add-modal .ef-form.type").val("question")
     $(".easy-flow-add-modal .ef-form.question").val("")
     $(".easy-flow-add-modal .ef-form.text").val("")
-
     $(".link-update-modal .ef-form.text").val("")
   }
 

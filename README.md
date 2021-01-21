@@ -21,48 +21,82 @@
 + Then you can use it as follows
   ```html
   <script>
-      let flow = new EasyFlow({
-        el: "#example-box",
-        processes: [
-          {
-            id: "0d7c0925-dbe1-465a-adab-837612ce3c31",
-            type: 'question',
-            question: 'example question',
-            text: 'example text',
-            posX: 500,
-            posY: 50
-          },
-          {
-            id: "ae22e0c6-1b3f-4f05-87eb-28ff6936bf8c",
-            type: 'text',
-            question: '',
-            text: 'example text 2',
-            posX: 300,
-            posY: 300
-          }
-        ],
-        links: [
-          {
-            id: "9efb33a9-d1eb-4d37-8637-1faf98fd52e0",
-            text: 'example text 1',
-            from: "0d7c0925-dbe1-465a-adab-837612ce3c31",
-            to: "ae22e0c6-1b3f-4f05-87eb-28ff6936bf8c"
-          }
-        ],
-        onProcessAdded: (process) => {
-          //Insert db or do something
-          console.log(process)
-        },
-        onProcessDragged: (process, links) => {
-          //Update db positions or do something
-          console.log(process, links)
-        }
-        //other events are being developed
-      })
-    </script>
+    let flow = new EasyFlow({
+      el: "#example-box"
+    })
+  </script>
+
   ```
 
-# Dependencies
++ With Data
+```html
+<script>
+  let flow = new EasyFlow({
+    el: "#example-box",
+    processes: [
+      {
+        id: "0d7c0925-dbe1-465a-adab-837612ce3c31",
+        type: 'question',
+        question: 'example question',
+        text: 'example text',
+        posX: 500,
+        posY: 50
+      },
+      {
+        id: "ae22e0c6-1b3f-4f05-87eb-28ff6936bf8c",
+        type: 'text',
+        question: '',
+        text: 'example text 2',
+        posX: 300,
+        posY: 300
+      }
+    ],
+    links: [
+      {
+        id: "9efb33a9-d1eb-4d37-8637-1faf98fd52e0",
+        text: 'example text 1',
+        from: "0d7c0925-dbe1-465a-adab-837612ce3c31",
+        to: "ae22e0c6-1b3f-4f05-87eb-28ff6936bf8c"
+      }
+    ]
+  })
+</script>
+```
+
+## Events
+  ```html
+  <script>
+    let flow = new EasyFlow({
+      el: "#example-box",
+      onProcessAdded: (process) => {
+        //Insert DB or Do something
+        console.log("Added process:", process)
+      },
+      onProcessDragged: (process, links) => {
+        //Update DB positions or Do something
+        console.log("Dragged process and affected links:", process, links)
+      },
+      onProcessDeleted: (process, links) => {
+        //Update DB positions or Do something
+        console.log("Deleted Process and links:", process, links)
+      },
+      onLinkAdded: (link) => {
+        //Insert DB or Do something
+        console.log("Added link:", link)
+      },
+      onLinkUpdated: (link) => {
+        //Update DB or Do something
+        console.log("Updated link:", link)
+      },
+      onLinkDeleted: (link) => {
+        //Delete DB or Do something
+        console.log("Deleted link:", link)
+      }
+    })
+  </script>
+  ```
+
+## Dependencies
   + [Jquery 3.5.1](https://jquery.com/download/)
   + [Jqueryui 1.12.1](https://jqueryui.com/download/all/)
   + [PabloJs for svg](http://pablojs.com/)
