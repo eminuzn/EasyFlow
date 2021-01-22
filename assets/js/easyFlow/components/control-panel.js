@@ -60,8 +60,8 @@ export default class ControlPanel{
         posX: 0,
         posY: 0,
         type: type,
-        question: type == "question"?"question":"",
-        text: "text"
+        question: type == "question"?"sample question":"",
+        text: "sample text"
     })
     this.processFactory.AddProcess(process)
   }
@@ -89,10 +89,6 @@ export default class ControlPanel{
 
     html += '<div class="easy-flow-overlay"></div>'
     html += '<div class="easy-flow-edit-modal easy-flow-modal">'
-    // html += '<select class="ef-form type">'
-    // html += '<option value="question">Question</option>'
-    // html += '<option value="text">Text</option>'
-    // html += '</select>'
     html += '<input class="ef-form question" placeholder="Question"/>'
     html += '<input class="ef-form text" placeholder="Text"/>'
     html += '<button class="update-process black-transition">Update</button>'

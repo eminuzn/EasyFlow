@@ -1,5 +1,9 @@
 # EasyFlow
  My project to draw flowchart in web environment
+
+ ## Demo 
+ [EasyFlow Demo Link](http://easy-flow.infinityfreeapp.com/)
+
  <img src="https://raw.githubusercontent.com/eminuzn/EasyFlow/main/assets/images/1.gif" width="500px" style="margin:10px auto;">
 
  <img src="https://raw.githubusercontent.com/eminuzn/EasyFlow/main/assets/images/2.gif" width="500px" style="margin:10px auto;">
@@ -91,6 +95,10 @@
       onLinkDeleted: (link) => {
         //Delete DB or Do something
         console.log("Deleted link:", link)
+      },
+      onProcessUpdated: (process) => {
+        //Update DB or Do something
+        console.log("Updated Process:", process)
       }
     })
   </script>

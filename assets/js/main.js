@@ -9,8 +9,8 @@ $(function() {
         {
           id: "0d7c0925-dbe1-465a-adab-837612ce3c31",
           type: 'question',
-          question: 'naber',
-          text: 'example text',
+          question: 'Example Question',
+          text: 'Example Text',
           posX: 500,
           posY: 50
         },
@@ -18,7 +18,7 @@ $(function() {
           id: "ae22e0c6-1b3f-4f05-87eb-28ff6936bf8c",
           type: 'text',
           question: '',
-          text: 'Deneme Yazı',
+          text: 'Example Text',
           posX: 300,
           posY: 300
         }
@@ -26,7 +26,7 @@ $(function() {
       links: [
         {
           id: "9efb33a9-d1eb-4d37-8637-1faf98fd52e0",
-          text: 'deneme link 1',
+          text: 'Example Link',
           from: "0d7c0925-dbe1-465a-adab-837612ce3c31",
           to: "ae22e0c6-1b3f-4f05-87eb-28ff6936bf8c"
         }
