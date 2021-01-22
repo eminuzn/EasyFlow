@@ -32,7 +32,7 @@ export default class Process{
       html += this.text
       html += '</div>'
     }
-    html += '<button class="noDrag process-edit black-transition">Edit</button>'
+    html += '<button class="noDrag process-edit black-transition" process-type="'+this.type+'" process-id="'+this.id+'">Edit</button>'
     html += '<div class="link-socket-output noDrag" process-id="'+this.id+'"></div>'
     html += '</div>'
 

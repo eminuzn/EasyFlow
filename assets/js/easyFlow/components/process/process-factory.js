@@ -9,8 +9,9 @@ export default class ProcessFactory{
   OnProcessAdded = function(){}
   OnProcessDragged = function(){}
   onProcessDeleted = function(){}
+  onProcessUpdated = function(){}
 
-  constructor(processes, links, onProcessAdded, onProcessDragged, onProcessDeleted, onLinkAdded, onLinkUpdated, onLinkDeleted){
+  constructor(processes, links, onProcessAdded, onProcessDragged, onProcessDeleted, onLinkAdded, onLinkUpdated, onLinkDeleted, onProcessUpdated){
     let _this = this
     for(let item of processes){
       _this.processes.push(new Process(item))
@@ -19,6 +20,7 @@ export default class ProcessFactory{
     this.OnProcessAdded = onProcessAdded
     this.OnProcessDragged = onProcessDragged
     this.onProcessDeleted = onProcessDeleted
+    this.onProcessUpdated = onProcessUpdated
   }
 
   InitProcesses(){
@@ -31,6 +33,7 @@ export default class ProcessFactory{
     this.linkFactory.InitLinkable()
     this.InitDeletable()
     this.InitDraggable()
+    this.InitEditable()
   }
 
   InitDeletable(){
@@ -39,6 +42,16 @@ export default class ProcessFactory{
       if(confirm("İşlemi Silmek İstediğinize Emin misiniz?")){
         _this.RemoveProcess($(this).attr("process-id"))
       }
+    })
+  }
+
+  InitEditable(){
+    let _this = this
+     $(".main-flow-box").on("click",".process-edit",function(){
+        $(".easy-flow-edit-modal").attr("form-type", $(this).attr("process-type"))
+        $(".easy-flow-edit-modal").attr("process-id", $(this).attr("process-id"))
+        $(".easy-flow-overlay").fadeIn(200)
+        $(".easy-flow-edit-modal").fadeIn(200)
     })
   }
 
@@ -73,9 +86,16 @@ export default class ProcessFactory{
     this.OnProcessDragged(draggedProcess, effectedLinks)
   }
 
-  UpdateProcess(processId){
-    let process = this.processes.find(x=>x.id === processId)
-    //yapım aşamasında
+  UpdateProcess(_process){
+    let process = this.processes.find(x=>x.id === _process.id)
+    process.question = process.type == "question"?_process.question:""
+    process.text = _process.text
+
+    if(process.type == "question")
+    $('.process-'+process.id).children(".question-box").eq(0).text(process.question)
+    $('.process-'+process.id).children(".text-box").eq(0).text(process.text)
+    
+    this.onProcessUpdated(process)
   }
 
   AddProcess(process){

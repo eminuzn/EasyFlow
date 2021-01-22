@@ -87,7 +87,9 @@
   padding: 10px;
   background-color: var(--fourth-color);
 }
-.new-process{
+.new-process,
+.new-question,
+.new-text{
   outline: none;
   border: 1px solid var(--first-color);
   background-color: var(--second-color);
@@ -97,6 +99,11 @@
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
+
+.easy-flow-edit-modal[form-type="text"] .ef-form.question{
+  display: none;
+}
+
 .black-transition:hover{
   background-color: var(--first-color);
 }

@@ -54,6 +54,10 @@ $(function() {
       onLinkDeleted: (link) => {
         //Delete DB or Do something
         console.log("Deleted link:", link)
+      },
+      onProcessUpdated: (process) => {
+        //Update DB or Do something
+        console.log("Updated Process:", process)
       }
     })
 });

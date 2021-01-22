@@ -16,47 +16,59 @@ export default class ControlPanel{
     
     $(".easy-flow-overlay").click(function(){
       $(".easy-flow-overlay").fadeOut(200)
-      $(".easy-flow-add-modal").fadeOut(200)
+      $(".easy-flow-edit-modal").fadeOut(200)
       $(".link-update-modal").fadeOut(200)
     })
 
-    $(".new-process").click(function(){
-      $(".easy-flow-overlay").fadeIn(200)
-      $(".easy-flow-add-modal").fadeIn(200)
+    $(".new-question").click(function(){
+      _this.AddProcess("question")
     })
 
-
-    $(".add-process").click(function(){
-
-      let process = new Process({
-        id:null,
-        posX:0,
-        posY:0,
-        type:$(".easy-flow-add-modal .ef-form.type").val(),
-        question:$(".easy-flow-add-modal .ef-form.question").val(),
-        text:$(".easy-flow-add-modal .ef-form.text").val()
-      })
-      _this.processFactory.AddProcess(process)
-
-      $(".easy-flow-overlay").fadeOut(200)
-      $(".easy-flow-add-modal").fadeOut(200)
-      _this.ClearForms()
+    $(".new-text").click(function(){
+      _this.AddProcess("text")
     })
 
     $(".update-link").click(function(){
-
       let linkid = $(this).parent().attr("link-id");
       _this.processFactory.linkFactory.UpdateLink(linkid)
-       $(".easy-flow-overlay").fadeOut(200)
-        $(".link-update-modal").fadeOut(200)
-        _this.ClearForms()
+      $(".easy-flow-overlay").fadeOut(200)
+      $(".link-update-modal").fadeOut(200)
+      _this.ClearForms()
     })
+
+    $(".update-process").click(function(){
+
+      let type = $(this).parent().attr("form-type")
+      let process = new Process({
+        id: $(this).parent().attr("process-id"),
+        question: type == "question"?$(this).parent().children(".ef-form.question").val():"",
+        text: $(this).parent().children(".ef-form.text").val()
+      })
+      _this.processFactory.UpdateProcess(process)
+
+      $(".easy-flow-overlay").fadeOut(200)
+      $(".easy-flow-edit-modal").fadeOut(200)
+      _this.ClearForms()
+    })
+
+
+  }
+
+  AddProcess(type){
+    let process = new Process({
+        id: null,
+        posX: 0,
+        posY: 0,
+        type: type,
+        question: type == "question"?"question":"",
+        text: "text"
+    })
+    this.processFactory.AddProcess(process)
   }
 
   ClearForms(){
-    $(".easy-flow-add-modal .ef-form.type").val("question")
-    $(".easy-flow-add-modal .ef-form.question").val("")
-    $(".easy-flow-add-modal .ef-form.text").val("")
+    $(".easy-flow-edit-modal .ef-form.question").val("")
+    $(".easy-flow-edit-modal .ef-form.text").val("")
     $(".link-update-modal .ef-form.text").val("")
   }
 
@@ -64,7 +76,8 @@ export default class ControlPanel{
     let html = ''
 
     html += '<div class="easy-flow-control-panel">'
-    html += '<button class="new-process black-transition">New Process</button>'
+    html += '<button class="new-question black-transition">New Question</button>'
+    html += '<button class="new-text black-transition">New Text</button>'
     html += '</div>'
     html += this.DrawAddModal()
 
@@ -75,14 +88,14 @@ export default class ControlPanel{
     let html = ''
 
     html += '<div class="easy-flow-overlay"></div>'
-    html += '<div class="easy-flow-add-modal easy-flow-modal">'
-    html += '<select class="ef-form type">'
-    html += '<option value="question">Question</option>'
-    html += '<option value="text">Text</option>'
-    html += '</select>'
+    html += '<div class="easy-flow-edit-modal easy-flow-modal">'
+    // html += '<select class="ef-form type">'
+    // html += '<option value="question">Question</option>'
+    // html += '<option value="text">Text</option>'
+    // html += '</select>'
     html += '<input class="ef-form question" placeholder="Question"/>'
     html += '<input class="ef-form text" placeholder="Text"/>'
-    html += '<button class="add-process black-transition">Add</button>'
+    html += '<button class="update-process black-transition">Update</button>'
     html += '</div>'
 
     html += '<div class="link-update-modal easy-flow-modal">'

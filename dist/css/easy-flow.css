@@ -87,7 +87,9 @@
   padding: 10px;
   background-color: var(--fourth-color);
 }
-.new-process{
+.new-process,
+.new-question,
+.new-text{
   outline: none;
   border: 1px solid var(--first-color);
   background-color: var(--second-color);
@@ -97,10 +99,16 @@
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
+
+.easy-flow-edit-modal[form-type="text"] .ef-form.question{
+  display: none;
+}
+
 .black-transition:hover{
   background-color: var(--first-color);
 }
-.easy-flow-add-modal{
+
+.easy-flow-modal{
   display: none;
   position: absolute;
   left: 50%;
@@ -120,7 +128,7 @@
   border-radius: 5px;
   border: 1px solid var(--first-color);
 }
-.add-process{
+.easy-flow-modal button{
   width: 100%;
   border: none;
   background-color: var(--fourth-color);
@@ -212,4 +220,19 @@
   line-height: 19px;
   font-weight: bolder;
   color: var(--third-color);
+}
+.link-text{
+  fill: var(--first-color);
+  z-index: 7;
+}
+.link-line{
+  stroke: var(--fourth-color);
+  stroke-width: 3;
+  fill:none;
+  cursor: pointer;
+}
+.link-line:hover{
+  stroke: var(--second-color);
+  stroke-width: 2.73205;
+  fill:none
 }
