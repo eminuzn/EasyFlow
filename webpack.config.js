@@ -30,7 +30,10 @@ const config = {
         ]
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.BannerPlugin('https://github.com/eminuzn/EasyFlow \n '+ Date.now())
+  ]
 };
 
 module.exports = config;

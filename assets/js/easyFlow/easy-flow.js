@@ -8,6 +8,8 @@ export default class EasyFlow{
   controlPanel = null
   processFactory = null
   links = null
+  x = 0
+  y = 0
 
   constructor({el, processes=[], links=[], onProcessAdded=() => {}, onProcessDragged=() => {}, onProcessDeleted=() => {}, onLinkAdded=() => {}, onLinkUpdated=() => {}, onLinkDeleted=() => {}, onProcessUpdated=()=>{}}){
     this.el = el
@@ -22,12 +24,50 @@ export default class EasyFlow{
     $(this.el).append(this.DrawFlowHtml())
     this.processFactory.InitProcesses()
 
-    var infinitedrag = jQuery.infinitedrag("#wall", {}, {
-      width: 100,
-      height: 100,
-      start_col: 0,
-      start_row: 0
+    this.InitBoardDrag()
+    // var infinitedrag = jQuery.infinitedrag("#wall", {}, {
+    //   width: 100,
+    //   height: 100,
+    //   start_col: 0,
+    //   start_row: 0
+    // });
+  }
+
+  InitBoardDrag(){
+
+    let wall = document.querySelector(this.el + " #wall")
+    let isDrawing = false
+
+    wall.addEventListener('mousedown', e => {
+      if (e.target !== e.currentTarget)
+        return;
+      let mainBox = document.querySelector(this.el + " .main-flow-box")
+      this.x = e.clientX - mainBox.offsetLeft
+      this.y = e.clientY - mainBox.offsetTop
+
+      isDrawing = true
     });
+
+    wall.addEventListener('mousemove', e => {
+      if (e.target !== e.currentTarget)
+        return;
+      if (isDrawing === true) {
+        this.MoveMainBox(e)
+      }
+    });
+
+    window.addEventListener('mouseup', e => {
+      if (isDrawing === true) {
+        this.MoveMainBox(e)
+        isDrawing = false
+      }
+    });
+  }
+
+  MoveMainBox(mousePos){
+    let mainBox = document.querySelector(this.el + " .main-flow-box")
+    mainBox.style.left = (mousePos.clientX - this.x) + "px"
+    mainBox.style.top = (mousePos.clientY - this.y) + "px"
   }
 
   DrawFlowHtml(){

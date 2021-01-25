@@ -54,8 +54,8 @@ export default class Link{
 
 
   CalcTranslate(){
-    let arrowX = this.startX + ((this.endX - this.startX) / 2);
-    let arrowY = this.startY + ((this.endY - this.startY) / 2);
+    let arrowX = this.startX + ((this.endX - this.startX) / 3);
+    let arrowY = this.startY + ((this.endY - this.startY) / 3) + 8;
 
     return `translate(${arrowX}, ${arrowY})`
   }
@@ -84,18 +84,17 @@ export default class Link{
       fromPosition.left = fromPosition.left - mainFlowBoxPosition.left
 
       this.startX = fromPosition.left + (fromWith / 2)
-      this.startY = fromPosition.top + fromHeight
+      this.startY = fromPosition.top + fromHeight - 5
 
       if(this.id != 'newLink'){
         let toPosition = $(".process-"+this.to).offset()
         let toWith = $(".process-"+this.to).outerWidth()
-        let toHeight = $(".process-"+this.to).outerHeight()
 
         toPosition.top = toPosition.top - mainFlowBoxPosition.top
         toPosition.left = toPosition.left - mainFlowBoxPosition.left
 
         this.endX = toPosition.left + (toWith / 2)
-        this.endY = toPosition.top
+        this.endY = toPosition.top -20
       }
       else{
         this.endX = mousePos.pageX - mainFlowBoxPosition.left
