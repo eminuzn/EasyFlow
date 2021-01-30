@@ -31,6 +31,9 @@ $(function() {
           to: "ae22e0c6-1b3f-4f05-87eb-28ff6936bf8c"
         }
       ],
+      onLoad: () => {
+        console.log("EasyFlow is Load")
+      },
       onProcessAdded: (process) => {
         //Insert DB or Do something
         console.log("Added process:", process)
@@ -43,6 +46,10 @@ $(function() {
         //Update DB positions or Do something
         console.log("Deleted Process and links:", process, links)
       },
+      onProcessUpdated: (process) => {
+        //Update DB or Do something
+        console.log("Updated Process:", process)
+      },
       onLinkAdded: (link) => {
         //Insert DB or Do something
         console.log("Added link:", link)
@@ -54,10 +61,6 @@ $(function() {
       onLinkDeleted: (link) => {
         //Delete DB or Do something
         console.log("Deleted link:", link)
-      },
-      onProcessUpdated: (process) => {
-        //Update DB or Do something
-        console.log("Updated Process:", process)
       }
     })
 });

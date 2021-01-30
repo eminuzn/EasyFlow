@@ -11,11 +11,12 @@ export default class EasyFlow{
   x = 0
   y = 0
 
-  constructor({el, processes=[], links=[], onProcessAdded=() => {}, onProcessDragged=() => {}, onProcessDeleted=() => {}, onLinkAdded=() => {}, onLinkUpdated=() => {}, onLinkDeleted=() => {}, onProcessUpdated=()=>{}}){
+  constructor({el, processes=[], links=[], onProcessAdded=() => {}, onProcessDragged=() => {}, onProcessDeleted=() => {}, onLinkAdded=() => {}, onLinkUpdated=() => {}, onLinkDeleted=() => {}, onProcessUpdated=()=>{}, onLoad=()=>{}}){
     this.el = el
     this.processFactory = new ProcessFactory(processes, links, onProcessAdded, onProcessDragged, onProcessDeleted, onLinkAdded, onLinkUpdated, onLinkDeleted, onProcessUpdated)
     this.controlPanel = new ControlPanel(this.processFactory)
     this.init()
+    onLoad();
   }
 
   async init(){
@@ -25,12 +26,6 @@ export default class EasyFlow{
     this.processFactory.InitProcesses()
 
     this.InitBoardDrag()
-    // var infinitedrag = jQuery.infinitedrag("#wall", {}, {
-    //   width: 100,
-    //   height: 100,
-    //   start_col: 0,
-    //   start_row: 0
-    // });
   }
 
   InitBoardDrag(){
