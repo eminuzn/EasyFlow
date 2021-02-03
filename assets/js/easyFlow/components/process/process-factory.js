@@ -11,12 +11,12 @@ export default class ProcessFactory{
   onProcessDeleted = function(){}
   onProcessUpdated = function(){}
 
-  constructor(processes, links, onProcessAdded, onProcessDragged, onProcessDeleted, onLinkAdded, onLinkUpdated, onLinkDeleted, onProcessUpdated){
+  constructor(processes,linkFactory, onProcessAdded, onProcessDragged, onProcessDeleted, onProcessUpdated){
     let _this = this
     for(let item of processes){
       _this.processes.push(new Process(item))
     }
-    this.linkFactory = new LinkFactory(links, onLinkAdded, onLinkUpdated, onLinkDeleted)
+    this.linkFactory = linkFactory
     this.OnProcessAdded = onProcessAdded
     this.OnProcessDragged = onProcessDragged
     this.onProcessDeleted = onProcessDeleted
@@ -29,8 +29,6 @@ export default class ProcessFactory{
       item.AppendProcess()
     }
     
-    this.linkFactory.InitLinks()
-    this.linkFactory.InitLinkable()
     this.InitDeletable()
     this.InitDraggable()
     this.InitEditable()

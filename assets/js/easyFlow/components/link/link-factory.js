@@ -27,6 +27,7 @@ export default class LinkFactory{
     this.newLink.AppendLink() 
     this.InitDeletable()
     this.IniUpdatable()
+    this.InitLinkable()
   }
 
   AddLink(link){

@@ -7,25 +7,25 @@ export default class EasyFlow{
   el = null
   controlPanel = null
   processFactory = null
-  links = null
+  linkFactory = null
   x = 0
   y = 0
 
   constructor({el, processes=[], links=[], onProcessAdded=() => {}, onProcessDragged=() => {}, onProcessDeleted=() => {}, onLinkAdded=() => {}, onLinkUpdated=() => {}, onLinkDeleted=() => {}, onProcessUpdated=()=>{}, onLoad=()=>{}}){
     this.el = el
-    this.processFactory = new ProcessFactory(processes, links, onProcessAdded, onProcessDragged, onProcessDeleted, onLinkAdded, onLinkUpdated, onLinkDeleted, onProcessUpdated)
+    this.linkFactory = new LinkFactory(links, onLinkAdded, onLinkUpdated, onLinkDeleted)
+    this.processFactory = new ProcessFactory(processes, this.linkFactory, onProcessAdded, onProcessDragged, onProcessDeleted, onProcessUpdated)
     this.controlPanel = new ControlPanel(this.processFactory)
     this.init()
     onLoad();
   }
 
   async init(){
-    const temp = this
     this.controlPanel.InitControlPanel(this.el)
     $(this.el).append(this.DrawFlowHtml())
-    this.processFactory.InitProcesses()
-
     this.InitBoardDrag()
+    this.processFactory.InitProcesses()
+    this.linkFactory.InitLinks()
   }
 
   InitBoardDrag(){
