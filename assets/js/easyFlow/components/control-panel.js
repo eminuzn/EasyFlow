@@ -44,7 +44,9 @@ export default class ControlPanel{
         question: type == "question"?$(this).parent().children(".ef-form.question").val():"",
         text: $(this).parent().children(".ef-form.text").val()
       })
+
       _this.processFactory.UpdateProcess(process)
+      _this.processFactory.linkFactory.ReCalcPositions(process.id)
 
       $(".easy-flow-overlay").fadeOut(200)
       $(".easy-flow-edit-modal").fadeOut(200)
