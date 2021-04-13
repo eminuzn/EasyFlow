@@ -4,6 +4,7 @@ import ProcessFactory from './components/process/process-factory.js';
 
 export default class EasyFlow{
 
+  static zoomFactor = 1
   el = null
   controlPanel = null
   processFactory = null
@@ -26,6 +27,7 @@ export default class EasyFlow{
     this.InitBoardDrag()
     this.processFactory.InitProcesses()
     this.linkFactory.InitLinks()
+    this.InıtBoardZoom()
   }
 
   InitBoardDrag(){
@@ -59,6 +61,21 @@ export default class EasyFlow{
     });
   }
 
+  InıtBoardZoom(){
+    let wall = document.querySelector(this.el + " #wall")
+    wall.addEventListener('wheel', function (e) {
+        var dir;
+        if (!e.ctrlKey) {
+            return;
+        }
+        e.preventDefault();
+        dir = (e.deltaY < 0) ? 0.1 : -0.1
+        EasyFlow.zoomFactor += dir;
+        $('.main-flow-box').css("zoom",EasyFlow.zoomFactor)
+        return;
+    });
+  }
+
   MoveMainBox(mousePos){
     let mainBox = document.querySelector(this.el + " .main-flow-box")
     mainBox.style.left = (mousePos.clientX - this.x) + "px"
@@ -69,7 +86,7 @@ export default class EasyFlow{
     let html = ''
     html += '<div id="viewport">'
     html += '<div id="wall">'
-    html += '<div class="main-flow-box">'
+    html += '<div class="main-flow-box" style="zoom:1">'
     html += '<svg class="link-box"><defs><filter x="0" y="0" width="1" height="1" id="bg-text"><feFlood flood-color="white"/><feComposite in="SourceGraphic" operator="xor" /></filter></defs>'
     html += '</svg>'
     html += '</div>'

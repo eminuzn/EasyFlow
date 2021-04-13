@@ -108,19 +108,21 @@ export default class LinkFactory{
 
     $(".main-flow-box").on("mousedown", ".link-socket-input", function(){
 
-      let filteredLink = _this.links.filter(x=>x.from==_this.newLink.from && x.to==parseInt($(this).attr("process-id")))
-      if(filteredLink.length == 0)
-      {
-        let linkToAdd = new Link({
-          id: EasyFlow.GenerateUUID(),
-          from:_this.newLink.from,
-          to: $(this).attr("process-id"),
-          text: ''
-        })
-        _this.AddLink(linkToAdd)
+      if(_this.newLink.from != null){
+        let filteredLink = _this.links.filter(x=>x.from==_this.newLink.from && x.to==parseInt($(this).attr("process-id")))
+        if(filteredLink.length == 0)
+        {
+          let linkToAdd = new Link({
+            id: EasyFlow.GenerateUUID(),
+            from:_this.newLink.from,
+            to: $(this).attr("process-id"),
+            text: ''
+          })
+          _this.AddLink(linkToAdd)
+        }
+        _this.newLink.from = null
+        _this.newLink.UpdatePositions()
       }
-      _this.newLink.from = null
-      _this.newLink.UpdatePositions()
     })
     
     $("#viewport").mousedown(function(){

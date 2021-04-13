@@ -54,20 +54,40 @@ export default class ProcessFactory{
   }
 
   InitDraggable(){
-    let _this = this
+    let isDrawing = false
+    let drawingProcess = null;
 
-    $(".process-box").draggable({
-      cancel: '.noDrag',
-      start: function() {
-        //do something
-      },
-      drag: function() {
-        _this.linkFactory.ReCalcPositions($(this).attr("process-id"))
-      },
-      stop: function() {
-        _this.UpdateProcessPosition($(this))
+    window.addEventListener('mousedown', e => {
+      if ((e.target.matches('.process-box') || e.target.matches('.process-box div')) && !e.target.matches('.noDrag')){
+        drawingProcess = e.target
+        if(!e.target.matches('.process-box')){
+          drawingProcess = e.target.closest('.process-box')
+        }
+        this.x = (e.clientX / EasyFlow.zoomFactor) - drawingProcess.offsetLeft
+        this.y = (e.clientY / EasyFlow.zoomFactor) - drawingProcess.offsetTop
+        isDrawing = true
       }
-    })
+    });
+    window.addEventListener('mousemove', e => {
+      
+      if ( isDrawing === true ) {
+        this.MoveProcessBox(drawingProcess)
+        this.linkFactory.ReCalcPositions(drawingProcess.getAttribute("process-id"))
+      }
+    });
+    window.addEventListener('mouseup', e => {
+      if (isDrawing === true) {
+        this.MoveProcessBox(drawingProcess)
+        this.UpdateProcessPosition($(".process-box[process-id='"+drawingProcess.getAttribute("process-id")+"']"))
+        isDrawing = false
+        drawingProcess = null
+      }
+    });
+  }
+
+  MoveProcessBox(target){
+    target.style.left = ((event.clientX / EasyFlow.zoomFactor) - this.x ) + "px"
+    target.style.top = ((event.clientY / EasyFlow.zoomFactor) - this.y ) + "px"
   }
 
   UpdateProcessPosition(processEl){

@@ -1,3 +1,4 @@
+import EasyFlow from "../../easy-flow.js"
 export default class Link{
 
   id = null
@@ -44,24 +45,24 @@ export default class Link{
   }
 
   CalcPath(){
-    let cx = this.startX
-    let cy = this.startY
-    let ex = this.endX
-    let ey = this.endY
-    let x1 = cx, y1 = cy + 50, x2 = ex, y2 = ey - 50;
-    return `M ${cx}, ${cy} C ${x1}, ${y1}, ${x2}, ${y2}, ${ex}, ${ey}`;
+    let cx = this.startX 
+    let cy = this.startY 
+    let ex = this.endX 
+    let ey = this.endY 
+    let x1 = cx, y1 = cy + 60, x2 = ex, y2 = ey - 60;
+    return `M ${cx}, ${cy + 15} C ${x1}, ${y1}, ${x2}, ${y2}, ${ex}, ${ey + 15}`;
   }
 
 
   CalcTranslate(){
-    let arrowX = this.startX + ((this.endX - this.startX) / 3);
-    let arrowY = this.startY + ((this.endY - this.startY) / 3) + 8;
+    let arrowX = (this.startX ) + (((this.endX - this.startX) ) / 3 );
+    let arrowY = (this.startY ) + (((this.endY - this.startY) ) / 3 ) + (14);
 
     return `translate(${arrowX}, ${arrowY})`
   }
 
   CalcRotate(){
-    const angle = -Math.atan2(this.endX - this.startX, this.endY - this.startY);
+    const angle = -Math.atan2((this.endX - this.startX), (this.endY - this.startY));
     let degree = angle * 180 / Math.PI;
     degree = degree < 0 ? degree + 360 : degree;
 
@@ -97,8 +98,8 @@ export default class Link{
         this.endY = toPosition.top -20
       }
       else{
-        this.endX = mousePos.pageX - mainFlowBoxPosition.left
-        this.endY = mousePos.pageY - mainFlowBoxPosition.top
+        this.endX = (mousePos.pageX / EasyFlow.zoomFactor) - mainFlowBoxPosition.left
+        this.endY = (mousePos.pageY / EasyFlow.zoomFactor) - mainFlowBoxPosition.top
       }
     }
     else{

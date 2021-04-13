@@ -180,8 +180,6 @@
   background-color: var(--fourth-color);
 }
 .link-box{
-  width: 1px;
-  height: 1px;
     overflow: unset;
 }
 .close-x {
