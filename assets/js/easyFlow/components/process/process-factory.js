@@ -24,11 +24,9 @@ export default class ProcessFactory{
   }
 
   InitProcesses(){
-    
     for(let item of this.processes){
       item.AppendProcess()
     }
-    
     this.InitDeletable()
     this.InitDraggable()
     this.InitEditable()
@@ -46,10 +44,25 @@ export default class ProcessFactory{
   InitEditable(){
     let _this = this
      $(".main-flow-box").on("click",".process-edit",function(){
-        $(".easy-flow-edit-modal").attr("form-type", $(this).attr("process-type"))
-        $(".easy-flow-edit-modal").attr("process-id", $(this).attr("process-id"))
-        $(".easy-flow-overlay").fadeIn(200)
-        $(".easy-flow-edit-modal").fadeIn(200)
+        let processType = $(this).attr("process-type")
+        let processId = $(this).attr("process-id")
+        let selectedProcess = _this.processes.find(x => x.id == processId)
+
+        if(selectedProcess){
+          
+          if(processType == "question" ){
+            $(".easy-flow-edit-modal .question").val(selectedProcess.question)
+            $(".easy-flow-edit-modal .text").val(selectedProcess.text)
+          }
+          else if(processType == "text"){
+            $(".easy-flow-edit-modal .text").val(selectedProcess.text)
+          }
+          
+          $(".easy-flow-edit-modal").attr("form-type", processType)
+          $(".easy-flow-edit-modal").attr("process-id", processId)
+          $(".easy-flow-overlay").fadeIn(200)
+          $(".easy-flow-edit-modal").fadeIn(200)
+        }
     })
   }
 
@@ -117,12 +130,9 @@ export default class ProcessFactory{
   }
 
   AddProcess(process){
-    //Add Db process and get id 
     process.id = EasyFlow.GenerateUUID()
-    //Math.floor(Math.random() * Math.floor(1000))
     this.processes.push(process)
     process.AppendProcess()
-    this.InitDraggable()
 
     this.OnProcessAdded(process)
   }

@@ -20,12 +20,8 @@ export default class ControlPanel{
       $(".link-update-modal").fadeOut(200)
     })
 
-    $(".new-question").click(function(){
-      _this.AddProcess("question")
-    })
-
-    $(".new-text").click(function(){
-      _this.AddProcess("text")
+    $(".new-process").click(function(){
+      _this.AddProcess($(this).attr("type"))
     })
 
     $(".update-link").click(function(){
@@ -41,8 +37,8 @@ export default class ControlPanel{
       let type = $(this).parent().attr("form-type")
       let process = new Process({
         id: $(this).parent().attr("process-id"),
-        question: type == "question"?$(this).parent().children(".ef-form.question").val():"",
-        text: $(this).parent().children(".ef-form.text").val()
+        question: type == "question" ? $(this).parent().children(".ef-form.question").val():"",
+        text: (type == "question" || type == "text") ? $(this).parent().children(".ef-form.text").val():""
       })
 
       _this.processFactory.UpdateProcess(process)
@@ -52,8 +48,6 @@ export default class ControlPanel{
       $(".easy-flow-edit-modal").fadeOut(200)
       _this.ClearForms()
     })
-
-
   }
 
   AddProcess(type){
@@ -78,15 +72,15 @@ export default class ControlPanel{
     let html = ''
 
     html += '<div class="easy-flow-control-panel">'
-    html += '<button class="new-question black-transition">New Question</button>'
-    html += '<button class="new-text black-transition">New Text</button>'
+    html += '<button class="new-question new-process black-transition" type="question">New Question</button>'
+    html += '<button class="new-text new-process black-transition" type="text">New Text</button>'
     html += '</div>'
-    html += this.DrawAddModal()
+    html += this.DrawUpdateModal()
 
     return html
   }
 
-  DrawAddModal(){
+  DrawUpdateModal(){
     let html = ''
 
     html += '<div class="easy-flow-overlay"></div>'
