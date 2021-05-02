@@ -6,7 +6,7 @@
 
 }
 #viewport {
-    overflow:hidden; /* Occlude elements outside viewport! */
+    overflow:hidden; 
     background-color:#000;
     width:100%;
     height:100%;
@@ -14,23 +14,12 @@
     z-index: 1;
   }
   #wall {
-    /* Default settings by code:
-     *  position: relative;
-     *  cursor: move;
-     */
+    
      cursor: grab !important;
      width: 100%;
      height: 100%;
   }
     #wall ._tile {
-      /* Default settings by code:
-       * position: absolute,
-       * left: [auto],
-       * top: [auto],
-       * width: [set by constructor],
-       * height: [set by constructor],
-       * overflow: hidden
-       */
       font-size:0;
       font-weight:bold;
       color:#000;
@@ -180,8 +169,6 @@
   background-color: var(--fourth-color);
 }
 .link-box{
-  width: 1px;
-  height: 1px;
     overflow: unset;
 }
 .close-x {
