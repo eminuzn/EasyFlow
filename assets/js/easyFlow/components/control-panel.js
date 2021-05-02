@@ -51,10 +51,14 @@ export default class ControlPanel{
   }
 
   AddProcess(type){
+
+    let mainFlowBoxleft = $(".main-flow-box").css("left")
+    let mainFlowBoxTop = $(".main-flow-box").css("top")
+    console.log(mainFlowBoxleft,mainFlowBoxTop)
     let process = new Process({
         id: null,
-        posX: 0,
-        posY: 0,
+        posX: 0 - mainFlowBoxleft.replace("px",""),
+        posY: 0 - mainFlowBoxTop.replace("px",""),
         type: type,
         question: type == "question"?"sample question":"",
         text: "sample text"

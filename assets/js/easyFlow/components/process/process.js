@@ -17,7 +17,7 @@ export default class Process{
 
   DrawProcessHtml(){
     let html = ''
-    html += '<div class="process-box process-'+this.id+'" process-id="'+this.id+'" style="left:'+this.posX+'px; top:'+this.posY+'px;">'
+    html += '<div class="process-box ef-noselect process-'+this.id+'" process-id="'+this.id+'" style="left:'+this.posX+'px; top:'+this.posY+'px;">'
     html += '<div class="link-socket-input noDrag" process-id="'+this.id+'"></div>'
     html += '<div class="delete-process noDrag" process-id="'+this.id+'">x</div>'
     html += this.DrawProcessInnerHtml()

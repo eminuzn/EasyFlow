@@ -2,7 +2,7 @@
  My project to draw flowchart in web environment
 
  ## Demo 
- [EasyFlow Demo Link](http://easy-flow.infinityfreeapp.com/)
+ [EasyFlow Demo Link](https://easyflowjs.netlify.app/)
 
  <img src="https://raw.githubusercontent.com/eminuzn/EasyFlow/main/assets/images/1.gif" width="500px" style="margin:10px auto;">
 

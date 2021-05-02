@@ -22,6 +22,7 @@ export default class EasyFlow{
   }
 
   async init(){
+    $(this.el).addClass("easy-flow-container")
     this.controlPanel.InitControlPanel(this.el)
     $(this.el).append(this.DrawFlowHtml())
     this.InitBoardDrag()
@@ -36,7 +37,7 @@ export default class EasyFlow{
     let isDrawing = false
 
     wall.addEventListener('mousedown', e => {
-      if (e.target !== e.currentTarget)
+      if (e.target !== e.currentTarget && !e.target.matches(".link-box"))
         return;
       let mainBox = document.querySelector(this.el + " .main-flow-box")
       this.x = e.clientX - mainBox.offsetLeft
@@ -46,7 +47,7 @@ export default class EasyFlow{
     });
 
     wall.addEventListener('mousemove', e => {
-      if (e.target !== e.currentTarget)
+      if (e.target !== e.currentTarget && !e.target.matches(".link-box"))
         return;
       if (isDrawing === true) {
         this.MoveMainBox(e)
