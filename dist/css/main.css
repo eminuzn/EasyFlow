@@ -1,10 +1,14 @@
 *{
   box-sizing: border-box;
+  font-family: 'Nunito', Nunito, monospace;
 }
 html,body{
   margin: 0;
 }
 #example-box{
+  /*width: 900px;
+  height: 700px;
+  margin: 50px auto;*/
   width: 100%;
   height: 100vh;
 }
